@@ -1,3 +1,5 @@
+var results = require('./data/results.json')
+
 module.exports = function(app) {
 
 	// server routes ===========================================================
@@ -6,8 +8,12 @@ module.exports = function(app) {
 
 	// frontend routes =========================================================
 	// route to handle all angular requests
-	app.get('*', function(req, res) {
+	app.get('/', function(req, res) {
 		res.sendfile('./public/index.html');
-	});
+	})
+
+	app.get('/results', function(req, res){
+		return res.status(200).json(results).send();
+	})
 
 };
