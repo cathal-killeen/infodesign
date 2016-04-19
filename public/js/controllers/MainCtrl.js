@@ -2,7 +2,11 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, Sub
 
 	$scope.tagline = 'To the moon and back!';
 
-	$scope.data = Subjects.get();
+	Subjects.get().then(function(data) {
+		$scope.data = data;
+		console.log($scope.data);
+		console.log(Subjects.names());
+	})
 
 	var chart = new CanvasJS.Chart("bubbleChartContainer",
 	{
