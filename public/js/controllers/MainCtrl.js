@@ -16,6 +16,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, Sub
 
 		var chart = new CanvasJS.Chart("bubbleChartContainer",
 		{
+			animationEnabled: true,
 			title:{
 				text: "2015 Higher Level Leaving Cert Subject Enrollment"
 			},
