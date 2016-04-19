@@ -13,6 +13,7 @@ module.exports = function(app) {
 	})
 
 	app.get('/results', function(req, res){
+		console.log(results);
 		return res.status(200).json(results).send();
 	})
 

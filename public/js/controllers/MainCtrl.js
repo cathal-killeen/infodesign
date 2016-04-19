@@ -1,6 +1,8 @@
-angular.module('MainCtrl', []).controller('MainController', function($scope) {
+angular.module('MainCtrl', []).controller('MainController', function($scope, Subjects) {
 
 	$scope.tagline = 'To the moon and back!';
+
+	$scope.data = Subjects.get();
 
 	var chart = new CanvasJS.Chart("bubbleChartContainer",
 	{
