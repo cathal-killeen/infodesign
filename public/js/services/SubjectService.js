@@ -20,10 +20,31 @@ angular.module('SubjectService', []).factory('Subjects', ['$http', '$location', 
         }
     }
 
-    function Subject(name, genders){
+    function Subject(name, data){
         this.name = name;
-        this.male = new Gender(genders.Male);
-        this.female = new Gender(genders.Female);
+        this.category = data.Category;
+        this.categoryNum = function(){
+            var num = 0;
+            switch (this.category) {
+                case "Language":
+                    num = 1;
+                    break;
+                case "Humanities":
+                    num = 2;
+                    break;
+                case "Business":
+                    num = 3;
+                    break;
+                case "STEM":
+                    num = 4;
+                    break;
+                default:
+                    num = 0;
+            }
+            return num;
+        }
+        this.male = new Gender(data.Male);
+        this.female = new Gender(data.Female);
         this.total = this.male.total() + this.female.total();
         this.percent_male = (this.male.total()/this.total)*100;
         this.percent_female = (this.female.total()/this.total)*100;
