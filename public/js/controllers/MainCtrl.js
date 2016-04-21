@@ -3,12 +3,16 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, Sub
 	$scope.tagline = 'To the moon and back!';
 
 	Subjects.get().then(function(data) {
-		var subjects = Subjects.array();
-		console.log(subjects);
+		$scope.$apply(function(){
+			$scope.subjects = Subjects.array()
+			$scope.selected = $scope.subjects[0];
+		})
+		console.log($scope.subjects);
+		$scope.selectedSubject;
 
 		var genDataPoints = function(){
 			var arr = [];
-			subjects.forEach(function(subject){
+			$scope.subjects.forEach(function(subject){
 				arr.push({x:subject.percent_female, y: subject.categoryNum(), z: subject.total, name: subject.name, category: subject.category, roundPercent: subject.percent_female.toPrecision(3)});
 			})
 			return arr;
@@ -57,7 +61,6 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, Sub
 			legend:{
 				verticalAlign: "bottom",
 				horizontalAlign: "left"
-
 			},
 			data: [
 				{
@@ -73,6 +76,80 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, Sub
 		});
 
 		chart.render();
+
+		var genMalePoints = function(subject){
+			arr = [];
+			var grades = subject.male.grades;
+			Object.keys(grades).forEach(function(grade){
+				percent = (grades[grade]/subject.male.total())*100;
+				arr.push({label: grade, y: percent})
+			})
+			return arr;
+		}
+
+		var genFemalePoints = function(subject){
+			arr = [];
+			var grades = subject.female.grades;
+			Object.keys(grades).forEach(function(grade){
+				percent = (grades[grade]/subject.female.total())*100;
+				arr.push({label: grade, y: percent})
+			})
+			return arr;
+		}
+
+		var spline = new CanvasJS.Chart("splineContainer",
+		{
+			title:{
+				text: $scope.selected.name,
+				titleFontFamily: "arial",
+			},
+			animationEnabled: true,
+			axisY:{
+				title: "Percentage",
+				titleFontFamily: "arial",
+				titleFontSize: 12,
+				includeZero: false
+			},
+			toolTip: {
+				shared: true
+			},
+			data: [
+				{
+					type: "spline",
+					name: "Male",
+					showInLegend: true,
+					dataPoints: genMalePoints($scope.selected)
+				},
+				{
+					type: "spline",
+					name: "Female",
+					showInLegend: true,
+					dataPoints: genFemalePoints($scope.selected)
+				}
+			],
+			legend:{
+				cursor:"pointer",
+				itemclick:function(e){
+					if(typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+						e.dataSeries.visible = false;
+					}
+					else {
+						e.dataSeries.visible = true;
+					}
+					chart.render();
+				}
+			}
+		});
+
+		spline.render();
+
+		$scope.$watch('selected', function(){
+			console.log("Selected new");
+			spline.options.title.text = $scope.selected.name;
+			spline.options.data[0].dataPoints = genMalePoints($scope.selected);
+			spline.options.data[1].dataPoints = genFemalePoints($scope.selected);
+			spline.render();
+		});
 	})
 
 
