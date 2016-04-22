@@ -1,4 +1,4 @@
-{"Field":"(0011) Basic programmes and qualifications","Male":25,"Female":54,"Category":"Generic programmes and qualifications"},
+[{"Field":"(0011) Basic programmes and qualifications","Male":25,"Female":54,"Category":"Generic programmes and qualifications"},
 {"Field":"(0021) Literacy and numeracy","Male":0,"Female":0,"Category":"Generic programmes and qualifications"},
 {"Field":"(0031) Personal skills and development","Male":0,"Female":0,"Category":"Generic programmes and qualifications"},
 {"Field":"(0110) Education not further defined or elsewhere classified","Male":0,"Female":0,"Category":"Education"},
@@ -95,4 +95,4 @@
 {"Field":"(0920) Welfare not further defined or elsewhere classified","Male":0,"Female":0,"Category":"Health and welfare"},
 {"Field":"(0921) Care of the elderly and of disabled adults","Male":0,"Female":17,"Category":"Health and welfare"},
 {"Field":"(0922) Child care and youth services","Male":21,"Female":121,"Category":"Health and welfare"},
-{"Field":"(0923) Social work and counselling","Male":24,"Female":58,"Category":"Health and welfare"}
+{"Field":"(0923) Social work and counselling","Male":24,"Female":58,"Category":"Health and welfare"}]
