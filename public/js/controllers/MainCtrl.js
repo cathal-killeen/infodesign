@@ -13,7 +13,15 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, Sub
 		var genDataPoints = function(){
 			var arr = [];
 			$scope.subjects.forEach(function(subject){
-				arr.push({x:subject.percent_female, y: subject.categoryNum(), z: subject.total, name: subject.name, category: subject.category, roundPercent: subject.percent_female.toPrecision(3)});
+				arr.push({
+					x:subject.percent_female,
+					y: subject.categoryNum(),
+					z: subject.total,
+					name: subject.name,
+					category: subject.category,
+					roundPercent: subject.percent_female.toPrecision(3),
+					numMale: subject.male.total(),
+					numFemale: subject.female.total()});
 			})
 			return arr;
 		}
@@ -69,7 +77,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, Sub
 					showInLegend: true,
 					legendMarkerType: "circle",
 					fillOpacity: 0.7,
-					toolTipContent: "<strong>{name}</strong> <br/> Subject Category: {category}<br/> Percent Female Students: {roundPercent}%<br/> Total Students: {z}",
+					toolTipContent: "<strong>{name}</strong> <br/> Subject Category: {category}<br/>Percent Female: {roundPercent}%<br/>Male Students: {numMale} <br>Female Students: {numFemale} <br>Total Students: {z}",
 					dataPoints: genDataPoints()
 				}
 			]
