@@ -1,6 +1,143 @@
-angular.module('MainCtrl', []).controller('MainController', function($scope, Subjects) {
+angular.module('MainCtrl', []).controller('MainController', function($scope, Subjects, Entrants) {
 
 	$scope.tagline = 'To the moon and back!';
+
+	Entrants.categories().then(function(data){
+		$scope.categories = data;
+		console.log($scope.categories);
+	});
+
+	Entrants.get().then(function(data){
+		$scope.entrants = data;
+		console.log($scope.entrants)
+
+		var genEntrantPoints = function(){
+			var arr = [];
+			$scope.entrants.forEach(function(field){
+				arr.push({
+					x: field.percent_female,
+					y: field.category_num(),
+					z: field.total,
+					name: field.name,
+					category: field.category,
+					roundPercent: field.percent_female.toPrecision(3),
+					numMale: field.male,
+					numFemale: field.female});
+			})
+			return arr;
+		}
+
+		var entrants = new CanvasJS.Chart("entrantsChart",
+		{
+			animationEnabled: true,
+			title:{
+				text: "2014/15 University Undergraduate Entrants",
+				fontFamily: "arial",
+				fontSize: 40
+			},
+			axisX: {
+				title:"Percent Female",
+				fontFamily: "arial",
+				labelFontSize: 20,
+				titleFontSize: 20,
+				maximum: 100
+			},
+			axisY:{
+				valueFormatString: " ",
+				tickColor: "transparent",
+				maximum: 12,
+				stripLines:[
+					{
+						value: 1.1,
+						color:"#FFFFFF",
+						label : "Generic programmes and qualifications",
+						labelFontColor: "#000000",
+					},
+					{
+						value: 2.1,
+						color:"#FFFFFF",
+						label : "Education",
+						labelFontColor: "#000000",
+					},
+					{
+						value: 3.1,
+						color:"#FFFFFF",
+						label : "Services",
+						labelFontColor: "#000000",
+					},
+					{
+						value: 4.1,
+						color:"#FFFFFF",
+						label : "Arts and humanities",
+						labelFontColor: "#000000",
+					},
+					{
+						value: 5.1,
+						color:"#FFFFFF",
+						label : "Social sciences, journalism and information",
+						labelFontColor: "#000000",
+					},
+					{
+						value: 6.1,
+						color:"#FFFFFF",
+						label : "Business, administration and law",
+						labelFontColor: "#000000",
+					},
+					{
+						value: 7.1,
+						color:"#FFFFFF",
+						label : "Natural sciences, mathematics and statistics",
+						labelFontColor: "#000000",
+					},
+					{
+						value: 8.1,
+						color:"#FFFFFF",
+						label : "Information and Communication Technologies (ICTs)",
+						labelFontColor: "#000000",
+					},
+					{
+						value: 9.1,
+						color:"#FFFFFF",
+						label : "Engineering, manufacturing and construction",
+						labelFontColor: "#000000",
+					},
+					{
+						value: 10.1,
+						color:"#FFFFFF",
+						label : "Agriculture, forestry, fisheries and veterinary",
+						labelFontColor: "#000000",
+					},
+					{
+						value: 11.1,
+						color:"#FFFFFF",
+						label : "Health and welfare",
+						labelFontColor: "#000000",
+					}
+				]
+			},
+			legend:{
+				verticalAlign: "bottom",
+				horizontalAlign: "left",
+				fontSize: 20
+			},
+			data: [
+				{
+					type: "bubble",
+					legendText: "Size of Bubble Represents Total Number of Students Enrolled",
+					showInLegend: true,
+					legendMarkerType: "circle",
+					fillOpacity: 0.7,
+					toolTipContent: "<strong>{name}</strong> <br/>Category: {category}<br/>Percent Female: {roundPercent}%<br/>Male Students: {numMale} <br>Female Students: {numFemale} <br>Total Students: {z}",
+					dataPoints: genEntrantPoints()
+				}
+			]
+		});
+
+		entrants.render();
+
+
+
+	})
 
 	Subjects.get().then(function(data) {
 		$scope.$apply(function(){
@@ -39,27 +176,28 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, Sub
 				valueFormatString: " ",
 				tickColor: "transparent",
 				maximum: 5,
+				interval: 1,
 				stripLines:[
 					{
-						value: 1,
+						value: 1.1,
 						color:"#FFFFFF",
 						label : "Languages",
 						labelFontColor: "#000000",
 					},
 					{
-						value:2,
+						value:2.1,
 						color:"#FFFFFF",
 						label : "Humanities",
 						labelFontColor: "#000000",
 					},
 					{
-						value: 3,
+						value: 3.1,
 						color:"#FFFFFF",
 						label : "Business",
 						labelFontColor: "#000000",
 					},
 					{
-						value: 4,
+						value: 4.1,
 						color:"#FFFFFF",
 						label : "STEM",
 						labelFontColor: "#000000",

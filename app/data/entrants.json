@@ -88,7 +88,7 @@
 {"Field":"(0910) Health not further defined or elsewhere classified","Male":8,"Female":29,"Category":"Health and welfare"},
 {"Field":"(0911) Dental studies","Male":38,"Female":99,"Category":"Health and welfare"},
 {"Field":"(0912) Medicine","Male":293,"Female":386,"Category":"Health and welfare"},
-{"Field":"(0913) Nursing and midwifery","Male":102,"Female":1.066,"Category":"Health and welfare"},
+{"Field":"(0913) Nursing and midwifery","Male":102,"Female":1066,"Category":"Health and welfare"},
 {"Field":"(0914) Medical diagnostic and treatment technology","Male":31,"Female":56,"Category":"Health and welfare"},
 {"Field":"(0915) Therapy and rehabilitation","Male":118,"Female":371,"Category":"Health and welfare"},
 {"Field":"(0916) Pharmacy","Male":48,"Female":92,"Category":"Health and welfare"},
