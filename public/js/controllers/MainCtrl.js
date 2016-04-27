@@ -201,6 +201,8 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, Sub
 		$scope.$apply(function(){
 			$scope.subjects = Subjects.array()
 			$scope.selected = $scope.subjects[0];
+			$scope.maleAverage = $scope.selected.male.expected;
+			$scope.femaleAverage = $scope.selected.female.expected;
 		})
 		console.log($scope.subjects);
 		$scope.selectedSubject;
@@ -359,6 +361,8 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, Sub
 			spline.options.title.text = $scope.selected.name;
 			spline.options.data[0].dataPoints = genMalePoints($scope.selected);
 			spline.options.data[1].dataPoints = genFemalePoints($scope.selected);
+			$scope.maleAverage = $scope.selected.male.expected;
+			$scope.femaleAverage = $scope.selected.female.expected;
 			spline.render();
 		});
 	})

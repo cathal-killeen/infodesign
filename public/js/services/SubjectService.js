@@ -8,6 +8,9 @@ angular.module('SubjectService', []).factory('Subjects', ['$http', '$location', 
             subjects = res.data;
         })
 
+    var grades =            ["A1","A2","B1","B2","B3","C1","C2","C3","D1","D2","D3","E","F","NG"];
+    var gradeUpperLimits =  [100,90,85,80,75,70,65,60,55,50,45,40,25,10];
+
     function Gender(grades){
         this.grades = grades;
         this.total = function(){
@@ -17,6 +20,19 @@ angular.module('SubjectService', []).factory('Subjects', ['$http', '$location', 
                 total += g[key];
             })
             return total;
+        }
+        this.expected = function(){
+            var total = 0;
+            Object.keys(g).forEach(function(key){
+                total += g[key] * gradeUpperLimits[index];
+            })
+            total = total/this.total;
+            for(var i=1;i<gradeUpperLimits.length;i++){
+                if(total > gradeUpperLimits[i]){
+                    return grades[i-1];
+                }
+                return grades[i];
+            }
         }
     }
 
