@@ -74,7 +74,7 @@ angular.module('EntrantsService', []).factory('Entrants', ['$http', '$location',
             return (this.male()/this.total())*100;
         }
         this.percent_female = function(){
-            return (this.female()/this.total)*100;
+            return (this.female()/this.total())*100;
         }
     }
 

@@ -2,142 +2,200 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, Sub
 
 	$scope.tagline = 'To the moon and back!';
 
-	Entrants.categories().then(function(data){
-		$scope.categories = data;
+	Entrants.categories().then(function(categories){
+		$scope.categories = categories;
 		console.log($scope.categories);
-	});
 
-	Entrants.get().then(function(data){
-		$scope.entrants = data;
-		console.log($scope.entrants)
-
-		var genEntrantPoints = function(){
+		var genMalePoints = function(){
 			var arr = [];
-			$scope.entrants.forEach(function(field){
-				arr.push({
-					x: field.percent_female,
-					y: field.category_num(),
-					z: field.total,
-					name: field.name,
-					category: field.category,
-					roundPercent: field.percent_female.toPrecision(3),
-					numMale: field.male,
-					numFemale: field.female});
+			$scope.categories.forEach(function(category){
+				arr.push({y: category.male(), label: category.name});
 			})
 			return arr;
 		}
 
-		var entrants = new CanvasJS.Chart("entrantsChart",
-		{
-			animationEnabled: true,
+		var genFemalePoints = function(){
+			var arr = [];
+			$scope.categories.forEach(function(category){
+				arr.push({y: category.female(), label: category.name});
+			})
+			return arr;
+		}
+
+		var femalePie = new CanvasJS.Chart("femalePie", {
 			title:{
-				text: "2014/15 University Undergraduate Entrants",
-				fontFamily: "arial",
-				fontSize: 40
+				text: "Female",
+				verticalAlign: 'top',
+				horizontalAlign: 'left'
 			},
-			axisX: {
-				title:"Percent Female",
-				fontFamily: "arial",
-				labelFontSize: 20,
-				titleFontSize: 20,
-				maximum: 100
-			},
-			axisY:{
-				valueFormatString: " ",
-				tickColor: "transparent",
-				maximum: 12,
-				stripLines:[
-					{
-						value: 1.1,
-						color:"#FFFFFF",
-						label : "Generic programmes and qualifications",
-						labelFontColor: "#000000",
-					},
-					{
-						value: 2.1,
-						color:"#FFFFFF",
-						label : "Education",
-						labelFontColor: "#000000",
-					},
-					{
-						value: 3.1,
-						color:"#FFFFFF",
-						label : "Services",
-						labelFontColor: "#000000",
-					},
-					{
-						value: 4.1,
-						color:"#FFFFFF",
-						label : "Arts and humanities",
-						labelFontColor: "#000000",
-					},
-					{
-						value: 5.1,
-						color:"#FFFFFF",
-						label : "Social sciences, journalism and information",
-						labelFontColor: "#000000",
-					},
-					{
-						value: 6.1,
-						color:"#FFFFFF",
-						label : "Business, administration and law",
-						labelFontColor: "#000000",
-					},
-					{
-						value: 7.1,
-						color:"#FFFFFF",
-						label : "Natural sciences, mathematics and statistics",
-						labelFontColor: "#000000",
-					},
-					{
-						value: 8.1,
-						color:"#FFFFFF",
-						label : "Information and Communication Technologies (ICTs)",
-						labelFontColor: "#000000",
-					},
-					{
-						value: 9.1,
-						color:"#FFFFFF",
-						label : "Engineering, manufacturing and construction",
-						labelFontColor: "#000000",
-					},
-					{
-						value: 10.1,
-						color:"#FFFFFF",
-						label : "Agriculture, forestry, fisheries and veterinary",
-						labelFontColor: "#000000",
-					},
-					{
-						value: 11.1,
-						color:"#FFFFFF",
-						label : "Health and welfare",
-						labelFontColor: "#000000",
-					}
-				]
-			},
-			legend:{
-				verticalAlign: "bottom",
-				horizontalAlign: "left",
-				fontSize: 20
-			},
+			animationEnabled: true,
 			data: [
 				{
-					type: "bubble",
-					legendText: "Size of Bubble Represents Total Number of Students Enrolled",
-					showInLegend: true,
-					legendMarkerType: "circle",
-					fillOpacity: 0.7,
-					toolTipContent: "<strong>{name}</strong> <br/>Category: {category}<br/>Percent Female: {roundPercent}%<br/>Male Students: {numMale} <br>Female Students: {numFemale} <br>Total Students: {z}",
-					dataPoints: genEntrantPoints()
+					type: "doughnut",
+					startAngle:20,
+					toolTipContent: "{label}: {y} - <strong>#percent%</strong>",
+					indexLabel: "{label} #percent%",
+					dataPoints: genFemalePoints()
 				}
 			]
 		});
+		femalePie.render();
 
-		entrants.render();
+		var malePie = new CanvasJS.Chart("malePie", {
+			title:{
+				text: "Male",
+				verticalAlign: 'top',
+				horizontalAlign: 'left'
+			},
+			animationEnabled: true,
+			data: [
+				{
+					type: "doughnut",
+					startAngle:20,
+					toolTipContent: "{label}: {y} - <strong>#percent%</strong>",
+					indexLabel: "{label} #percent%",
+					dataPoints: genMalePoints()
+				}
+			]
+		});
+		malePie.render();
+
+		Entrants.get().then(function(entrants){
+			$scope.entrants = entrants;
+			console.log($scope.entrants)
+
+			var genEntrantPoints = function(){
+				var arr = [];
+				$scope.entrants.forEach(function(field){
+					arr.push({
+						x: field.percent_female,
+						y: field.category_num(),
+						z: field.total,
+						name: field.name,
+						category: field.category,
+						roundPercent: field.percent_female.toPrecision(4),
+						numMale: field.male,
+						numFemale: field.female});
+				})
+				return arr;
+			}
+
+			var percentage = function(index){
+				return $scope.categories[index].percent_female().toPrecision(3);
+			}
+
+			var entrants = new CanvasJS.Chart("entrantsChart",
+			{
+				animationEnabled: true,
+				title:{
+					text: "2014/15 University Undergraduate Entrants",
+					fontSize: 40
+				},
+				axisX: {
+					title:"Percent Female",
+					fontFamily: "arial",
+					labelFontSize: 20,
+					titleFontSize: 20,
+					maximum: 100
+				},
+				axisY:{
+					valueFormatString: " ",
+					tickColor: "transparent",
+					maximum: 12,
+					stripLines:[
+						{
+							value: 1.1,
+							color:"#FFFFFF",
+							label : "Generic programmes and qualifications, " + percentage(0) + "%",
+							labelFontColor: "#000000",
+						},
+						{
+							value: 2.1,
+							color:"#FFFFFF",
+							label : "Education, " + percentage(1) + "%",
+							labelFontColor: "#000000",
+						},
+						{
+							value: 3.1,
+							color:"#FFFFFF",
+							label : "Services, " + percentage(2) + "%",
+							labelFontColor: "#000000",
+						},
+						{
+							value: 4.1,
+							color:"#FFFFFF",
+							label : "Arts and humanities, " + percentage(3) + "%",
+							labelFontColor: "#000000",
+						},
+						{
+							value: 5.1,
+							color:"#FFFFFF",
+							label : "Social sciences, journalism and information, " + percentage(4) + "%",
+							labelFontColor: "#000000",
+						},
+						{
+							value: 6.1,
+							color:"#FFFFFF",
+							label : "Business, administration and law, " + percentage(5) + "%",
+							labelFontColor: "#000000",
+						},
+						{
+							value: 7.1,
+							color:"#FFFFFF",
+							label : "Natural sciences, mathematics and statistics, " + percentage(6) + "%",
+							labelFontColor: "#000000",
+						},
+						{
+							value: 8.1,
+							color:"#FFFFFF",
+							label : "Information and Communication Technologies (ICTs), " + percentage(7) + "%",
+							labelFontColor: "#000000",
+						},
+						{
+							value: 9.1,
+							color:"#FFFFFF",
+							label : "Engineering, manufacturing and construction, " + percentage(8) + "%",
+							labelFontColor: "#000000",
+						},
+						{
+							value: 10.1,
+							color:"#FFFFFF",
+							label : "Agriculture, forestry, fisheries and veterinary, " + percentage(9) + "%",
+							labelFontColor: "#000000",
+						},
+						{
+							value: 11.1,
+							color:"#FFFFFF",
+							label : "Health and welfare, " + percentage(10) + "%",
+							labelFontColor: "#000000",
+						}
+					]
+				},
+				legend:{
+					verticalAlign: "bottom",
+					horizontalAlign: "left",
+					fontSize: 20
+				},
+				data: [
+					{
+						type: "bubble",
+						legendText: "Size of Bubble Represents Total Number of Students Enrolled",
+						showInLegend: true,
+						legendMarkerType: "circle",
+						fillOpacity: 0.7,
+						toolTipContent: "<strong>{name}</strong> <br/>Category: {category}<br/>Percent Female: {roundPercent}%<br/>Male Students: {numMale} <br>Female Students: {numFemale} <br>Total Students: {z}",
+						dataPoints: genEntrantPoints()
+					}
+				]
+			});
+
+			entrants.render();
 
 
 
-	})
+		});
+
+	});
 
 	Subjects.get().then(function(data) {
 		$scope.$apply(function(){
@@ -167,10 +225,16 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, Sub
 		{
 			animationEnabled: true,
 			title:{
-				text: "2015 Higher Level Leaving Cert Subject Enrollment"
+				text: "2015 Higher Level Leaving Cert Subject Enrollment",
+				fontSize: 30
 			},
 			axisX: {
-				title:"Percent Female"
+				title:"Percent Female",
+				fontFamily: "arial",
+				labelFontSize: 20,
+				titleFontSize: 20,
+				maximum: 100,
+				minimum: 0
 			},
 			axisY:{
 				valueFormatString: " ",
@@ -206,7 +270,8 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, Sub
 			},
 			legend:{
 				verticalAlign: "bottom",
-				horizontalAlign: "left"
+				horizontalAlign: "left",
+				fontSize: 15
 			},
 			data: [
 				{
