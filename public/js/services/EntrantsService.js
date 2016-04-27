@@ -80,7 +80,7 @@ angular.module('EntrantsService', []).factory('Entrants', ['$http', '$location',
 
     var getFields = function() {
         return new Promise(function(resolve, reject) {
-            $http.get('http://localhost:8080/entrants')
+            $http.get('http://cathal-lc-data.herokuapp.com/entrants')
                 .then(function(res){
                     var arr = [];
                     res.data.forEach(function(data){
