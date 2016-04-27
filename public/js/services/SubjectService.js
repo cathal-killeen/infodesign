@@ -2,7 +2,7 @@ angular.module('SubjectService', []).factory('Subjects', ['$http', '$location', 
     var isLoaded = false;
     var subjects;
     var host = $location.host;
-    $http.get('http://cathal-lc-data.herokuapp.com/results')
+    $http.get('http://localhost:8080/results')
         .then(function(res){
             isLoaded = true;
             subjects = res.data;
