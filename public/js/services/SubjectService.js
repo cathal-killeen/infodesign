@@ -22,17 +22,15 @@ angular.module('SubjectService', []).factory('Subjects', ['$http', '$location', 
             return total;
         }
         this.expected = function(){
-            var total = 0;
+            var combined = 0;
+            var g = this.grades;
+            var index = 0;
             Object.keys(g).forEach(function(key){
-                total += g[key] * gradeUpperLimits[index];
+                combined += (g[key] * gradeUpperLimits[index]);
+                index++;
             })
-            total = total/this.total;
-            for(var i=1;i<gradeUpperLimits.length;i++){
-                if(total > gradeUpperLimits[i]){
-                    return grades[i-1];
-                }
-                return grades[i];
-            }
+            var expectedValue = combined/this.total();
+            return expectedValue;
         }
     }
 
