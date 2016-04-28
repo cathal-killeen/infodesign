@@ -1,9 +1,39 @@
+<h1>Information Design</h1>
+<p class="subtitle">
+	Exploring academics by gender in Ireland
+</p>
+<p>
+	As a computer science student I am intrigued by the huge gender difference in the technology industry and other science and engineering related fields. There are 80 students in my class, of which only 5 are girls. The ratio is very similar in third level institutions across Ireland, and around the world. Fields such as maths, engineering and computer science remain dominated by men, and fields such as nursing and education are dominated by women.
+</p>
+<p>
+	There is much debate about the reasoning for this difference in choice – some arguing that its due to innate biological differences, and others suggesting cultural and societal expectations and perceptions of the two genders are a large contributing factor.
+</p>
+<p>
+	For my information design project, I would like to visually explore and compare the differences in academic choices and achievements of both genders.
+</p>
+<p>
+	I will explore data from Leaving Cert subject choices and achievements, and also third level degree course choices.
+</p>
+<h1>Leaving Certificate Subject Choices</h1>
+<p>
+	The Leaving Certificate offers a large range of subjects for students to take, and students normally take at least 7 subjects to study over two years. There are only 3 compulsory subjects – English, Irish, and Maths. I decided to take a look at what subjects students sat at Higher Level in 2015.
+</p>
 <div id="bubbleChartContainer" style="height: 500px; width: 100%;">
 
 </div>
-<br>
-<br>
-<br>
+<p>Source: <a href="https://www.examinations.ie/?l=en&mc=st&sc=r15">www.examinations.ie</a></p>
+<p>
+	The x-axis of this chart marks the percentage of female students that enrolled in a particular subject. On the far right, we see Home Economics – with 92.5% female students. Conversely, Engineering is on the other end of the scale – with only 5.65% female students. (Note: the decision to chart female percentage rather than male was completely arbitrary – and either would yield essentially the same result)
+
+</p>
+<p>
+	On the y-axis, I divided all of the subjects into 4 different categories: languages, humanities, business, and science, technology, engineering and maths (STEM). We can see a greater popularity of STEM and business subjects among male students, while female students in general seem to prefer languages and humanities.
+
+</p>
+<h1>Grades</h1>
+<p>
+Picking a subject is one thing, but scoring well in the exam is another. For the same group of students as above, I compared the grades in each subject between the two genders.
+</p>
 <br>
 <div class="form-group">
 	<label for="selectSubject" class="control-label">Select Subject</label>
@@ -16,15 +46,43 @@
 <div style="text-align:center;">
 	<b>Male average:</b> {{maleAverage}} <b>Female average:</b> {{femaleAverage}}
 </div>
+<p>Source: <a href="https://www.examinations.ie/?l=en&mc=st&sc=r15">www.examinations.ie</a></p>
+<p>
+	These graphs chart the grade on the x-axis, and the percentage of the gender that scored that grade on the y-axis. For example – the percentage of male students that scored an A1 in that subject. Not to be confused as the percentage of A1s scored by male students. In almost all of the subjects, girls outperformed their male counterparts on average. There are only 5 subjects where the male average was higher than the female average: Maths, Agricultural Economics, Accounting, Engineering and Applied Maths. Even in subjects like Construction Studies and Physics, which are stereotypically ‘male’ subjects and a higher percentage of males scored A1’s, the girls still made it out on top by average grade.
+
+</p>
 <br>
-<br>
-<br>
+<h1>Undergraduate University Entrants</h1>
+<p>
+	Along with differences in Leaving Certificate subject choices and success, I was interested to know what the gender breakdown of Irish university entrants was. The Higher Education Authority (HEA) provides excellent statistics every year of third level entrants categorised by a number of different variables. I decided to look at the numbers for entrants in September 2014 (the most recent data available on HEA.ie)
+
+</p>
 <div id="entrantsChart" style="height: 800px; width: 100%;">
 
 </div>
+<p>Source: <a href="http://www.hea.ie/node/1557">www.hea.ie</a></p>
+<p>
+	This bubble chart is in the same format as the Leaving Cert enrolments above. Although the chart does seem a bit chaotic at first glance – we gain some interesting perspectives on the behaviour and decisions of students entering university.
+
+</p>
+<p>
+	On the top right we see the huge blue bubble which represents nursing, a career path that still remains dominated by women. In fact, every health and welfare sub-category had a higher percentage of female entrants than male. That includes courses like medicine and dentistry, which are sometimes stereotypically considered male career paths.
+
+</p>
+<p>
+	Information and Communication Technologies (ICT) courses had the worst representation of female entrants – only 16.8% of entrants to ICT university courses in 2014 were female. Engineering wasn’t much better at 24.3%. However, we do see some fields of engineering such as chemical engineering and food processing which have more female students than male.
+
+</p>
+<p>
+	One of the most interesting insights I got from this chart was to do with education courses. With 54.2% female students, educational college entrants were almost even. However, male students seem to tend towards education courses with subject specialisation, while education courses without subject specialisation were dominated by female students.
+
+</p>
 <br>
-<br>
-<br>
+<h1>Course popularity by gender</h1>
+<p>
+	Using the same dataset as the previous bubble chart, I looked at the popularity of each course by gender using a donut chart/pie chart.
+
+</p>
 <div class="col-md-12">
 	<div class="col-md-6" id="male-pie-container">
 		<div id="malePie" style="height: 400px; width: 100%;">
@@ -35,3 +93,17 @@
 		</div>
 	</div>
 </div>
+<p>Source: <a href="http://www.hea.ie/node/1557">www.hea.ie</a></p>
+
+<p>
+	Health and welfare courses take up a huge chunk of female students. Over a quarter of female entrants pursued health and welfare related courses. Women were 3 times more likely to pursue a H&W course than men.
+
+</p>
+<p>
+	Science, engineering and IT courses made up just over 50% of male choices, but only 25% of female choices.
+
+</p>
+<p>
+	Male entrants were almost 6 times more likely to choose a course in IT than female entrants.
+
+</p>
